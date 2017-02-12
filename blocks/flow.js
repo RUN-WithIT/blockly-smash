@@ -7,6 +7,14 @@ Blockly.Blocks['flow'] = {
         .appendField("Data:");
     this.appendStatementInput("Reaction")
         .appendField("Reactions:");
+    this.appendDummyInput()
+        .appendField("Success Callback: ");
+    this.appendStatementInput("SUCCESS_CALLBACK")
+        .setCheck(null);
+    this.appendDummyInput()
+        .appendField("Fail Callback: ");
+    this.appendStatementInput("FAIL_CALLBACK")
+        .setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(240);
@@ -45,4 +53,14 @@ Blockly.Blocks['flow_reactions'] = {
     this.setTooltip('');
     this.setHelpUrl('');
   }
-}
+};
+
+Blockly.Blocks['flow_callback'] = {
+  init: function() {
+
+    this.setPreviousStatement(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
