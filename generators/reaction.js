@@ -9,7 +9,7 @@ Blockly.bash['reaction_add'] = function(block) {
 Blockly.bash['reaction_do'] = function(block) {
   var file = Blockly.bash.valueToCode(block, 'FILE', Blockly.bash.ORDER_ATOMIC);
 
-  var code = 'webui_do_reaction_file $flow_name ' + file + '\n';
+  var code = 'webui_do_reaction_file $flow_name  ${REACTIONS}/' + file + ' flow_callback mydata\n';
   return code;
 };
 
