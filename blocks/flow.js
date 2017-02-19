@@ -37,29 +37,4 @@ Blockly.Blocks['flow_data'] = {
   }
 };
 
-Blockly.Blocks['flow_reactions'] = {
-  init: function() {
-    this.appendValueInput('FILE')
-        .setCheck(null)
-        .appendField('webui_add_reaction_file')
-        .appendField('File:');
-    this.appendValueInput('GOAL')
-            .setAlign(Blockly.ALIGN_RIGHT)
-            .setCheck(null)
-            .appendField('GOAL:');
-    this.setPreviousStatement(true, 'Reaction');
-    this.setNextStatement(true, 'Reaction');
-    this.setColour(230);
-    this.setTooltip('');
-    this.setHelpUrl('');
-  }
-};
 
-Blockly.Blocks['flow_callback'] = {
-  init: function() {
-    this.setPreviousStatement(true, null);
-    this.setColour(230);
-    this.setTooltip('');
-    this.setHelpUrl('');
-  }
-};

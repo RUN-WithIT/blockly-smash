@@ -123,16 +123,6 @@ Blockly.bash['flow_data'] = function(block) {
   return code;
 };
 
-Blockly.bash['flow_reactions'] = function(block) {
-  var file = Blockly.bash.valueToCode(block, 'FILE', Blockly.bash.ORDER_ATOMIC);
-  var goal = Blockly.bash.valueToCode(block, 'GOAL', Blockly.bash.ORDER_ATOMIC);
-
-  var code = 'webui_add_reaction_file $flow_name ${REACTIONS}/' + file + ' ' + goal + '\n';
-  return code;
-};
 
 
-Blockly.bash['flow_callback'] = function(block) {
 
-  return code;
-};
