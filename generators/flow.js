@@ -8,30 +8,30 @@ Blockly.bash['flow'] = function(block) {
   var step0 =[
   'BASENAME=`basename $0`',
   'flow_name="' + name +'"',
-  'smash_data_add_kv sessionname:$BASENAME',
+  'sm_data_add_kv sessionname:$BASENAME',
   'CONF=../Config',
   'REACTIONS=../Reactions',
   '\n' +
   'err_exit()',
   '{',
-  '  smash_log ERROR "${BASENAME} has error on line $1"',
+  '  sm_log ERROR "${BASENAME} has error on line $1"',
   '}',
   '\n' +
   'trap \'err_exit $LINENO\' ERR',
   '\n' +
-  'smash_random_kick',
-  'smash_data_dequote_specials 1'
+  'sm_random_kick',
+  'sm_data_dequote_specials 1'
   ];
 
   var step1 = [
-    'webui_open ' + name,
+    'sm_webui_open ' + name,
     '\n' +
     'cleanup()',
     '{',
     '    set -e',
-    '    webui_status ' + name + ' flow_callback mydata',
-    '    webui_close ' + name,
-    '    smash_log INFO "${BASENAME} done"',
+    '    sm_webui_status ' + name + ' flow_callback mydata',
+    '    sm_webui_close ' + name,
+    '    sm_log INFO "${BASENAME} done"',
     '}',
     '\n' +
     'trap "cleanup" EXIT'
@@ -42,7 +42,7 @@ Blockly.bash['flow'] = function(block) {
     'trap "break" INT',
     'trap "break ; err_exit $LINENO" ERR',
     'while [ 1 ] ; do',
-    '  webui_process ' + name + ' 5 flow_callback mydata',
+    '  sm_webui_process ' + name + ' 5 flow_callback mydata',
     'done'
   ];
 
@@ -119,7 +119,7 @@ Blockly.bash['flow'] = function(block) {
 
 Blockly.bash['flow_data'] = function(block) {
   var file = Blockly.bash.valueToCode(block, 'FILE', Blockly.bash.ORDER_ATOMIC);
-  var code = 'smash_data_add_file ${CONF}/' + file + '\n';
+  var code = 'sm_data_add_file ${CONF}/' + file + '\n';
   return code;
 };
 
