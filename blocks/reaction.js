@@ -45,3 +45,33 @@ Blockly.Blocks['reaction_do'] = {
     this.setHelpUrl('');
   }
 };
+
+Blockly.Blocks['reaction_json'] = {
+    init: function() {
+        this.appendDummyInput()
+            .apppendField("Name:")
+            .appendField(new Blockly.FieldTextInput("reaction_name"), "NAME");
+        this.appendIValueInput()
+            .appendField("Trigger:")
+            .appendField(new Blockly.FieldTextInput("trigger"), "TRIGGER");
+        this.appendIValueInput()
+            .appendField("Success:")
+            .appendField(new Blockly.FieldTextInput("success"), "SUCCESS");
+        this.appendStatementInput()
+            .appendField("Actions:")
+            .setCheck('Reaction');
+    }
+};
+
+Blockly.Blocks['reaction_action_json'] = {
+    init: function() {
+        this.appendDummyInput()
+            .apppendField("Action:")
+            .appendField(new Blockly.FieldTextInput("do_it"), "ACTION");
+        this.appendIValueInput()
+            .appendField("Trigger:")
+            .appendField(new Blockly.FieldTextInput("Argument"), "ARGUMENT");
+        this.appendIValueInput()
+    }
+
+}
