@@ -139,7 +139,7 @@ Blockly.bash['blaster'] = function(block) {
              '\n\n' +
              blast.join('\n') +
              '\n\n' +
-             step2.join('\n');
+      step2.join('\n');
 
   return [code, Blockly.bash.ORDER_FUNCTION_CALL];
 };

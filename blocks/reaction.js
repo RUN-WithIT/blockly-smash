@@ -49,29 +49,30 @@ Blockly.Blocks['reaction_do'] = {
 Blockly.Blocks['reaction_json'] = {
     init: function() {
         this.appendDummyInput()
-            .apppendField("Name:")
+            .appendField("Name:")
             .appendField(new Blockly.FieldTextInput("reaction_name"), "NAME");
-        this.appendIValueInput()
-            .appendField("Trigger:")
-            .appendField(new Blockly.FieldTextInput("trigger"), "TRIGGER");
-        this.appendIValueInput()
+        this.appendValueInput("TRIGGER")
+            .appendField("Trigger:");
+        this.appendValueInput("SUCCESS")
             .appendField("Success:")
-            .appendField(new Blockly.FieldTextInput("success"), "SUCCESS");
-        this.appendStatementInput()
+        this.appendStatementInput("ACTIONS")
             .appendField("Actions:")
-            .setCheck('Reaction');
+            .setCheck('Reaction_Action');
+        this.setColour(240);
     }
 };
 
 Blockly.Blocks['reaction_action_json'] = {
     init: function() {
         this.appendDummyInput()
-            .apppendField("Action:")
+            .appendField("Action:")
             .appendField(new Blockly.FieldTextInput("do_it"), "ACTION");
-        this.appendIValueInput()
-            .appendField("Trigger:")
-            .appendField(new Blockly.FieldTextInput("Argument"), "ARGUMENT");
-        this.appendIValueInput()
+        this.appendValueInput("ARGUMENTS")
+            .appendField("Arguments:");
+        this.setPreviousStatement(true, 'Reaction_Action');
+        this.setNextStatement(true, 'Reaction_Action');
+        this.setColour(240);
+        
     }
 
 }
