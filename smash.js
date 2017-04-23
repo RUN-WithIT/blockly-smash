@@ -340,10 +340,6 @@ Blockly.Blocks['reaction_action_json'] = {
 
 'use strict';
 
-goog.provide('Blockly.json');
-
-goog.require('Blockly.Generator');
-
 
 Blockly.json = new Blockly.Generator('json');
 
@@ -509,6 +505,80 @@ Blockly.json.scrub_ = function(block, code) {
   var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
   var nextCode = Blockly.json.blockToCode(nextBlock);
   return commentCode + code + nextCode;
+};
+
+'use strict';
+
+Blockly.json['lists_create_with'] = function(block) {
+  // Create a list with any number of elements of any type.
+    var code = new Array(block.itemCount_);
+    for (var i = 0; i < block.itemCount_; i++) {
+      code[i] = Blockly.json.valueToCode(block, 'ADD' + i,
+                                       Blockly.json.ORDER_COMMA) || '';
+    }
+
+    var code = '[' + code.join(', ') + ']';
+
+    return [code, Blockly.json.ORDER_ATOMIC];
+};
+
+Blockly.json['reaction_json'] = function(block) {
+    var name =  block.getFieldValue('NAME');
+    var trigger = Blockly.json.valueToCode(block, 'TRIGGER', Blockly.json.ORDER_ATOMIC);
+    var success = Blockly.json.valueToCode(block, 'SUCCESS', Blockly.json.ORDER_ATOMIC);
+
+    var actions =  Blockly.json.statementToCode(block, 'ACTIONS');
+    
+    if (actions === "") {
+        actions = []
+    } else {
+          actions = '[' + actions + ']';
+    }
+    
+    var reactions = [ '{',
+                      '    "reactions": [',
+                      '     {',
+                      '        "name": "' + name + '",',
+                      '        "trigger": ' + trigger + ',',
+                      '        "success": ' + success + ',',
+                      '        "actions": ' + actions,
+                      '     }',
+                      '    ]',
+                      '};'
+                    ];
+    return reactions.join('\n');
+};
+
+
+Blockly.json['reaction_action_json'] = function(block) {
+    var action =   block.getFieldValue('ACTION');
+    var args =  Blockly.json.valueToCode(block, 'ARGUMENTS', Blockly.json.ORDER_ATOMIC);
+
+    var array = [ '"' + action + '"' ];
+    
+    array = array.concat(args);
+    
+    var json = '[\n' + array.join(',\n  ') + '\n]';
+
+    var previousBlock = block.previousConnection.targetBlock();
+    if (block.previousConnection.isConnected() && previousBlock.type !=block.type) {
+        json = '[\n' + json;
+        if (block.nextConnection.isConnected()) {
+            json += ',';
+        } else {
+            json += '\n]';
+        }
+    }
+    
+   
+    return json;
+};
+
+Blockly.json['text'] = function(block) {
+  // Text value.
+  var code = Blockly.json.quote_(block.getFieldValue('TEXT'));
+
+  return [code, Blockly.json.ORDER_ATOMIC];
 };
 
 Blockly.bash['blaster'] = function(block) {
@@ -830,77 +900,3 @@ qBlockly.bash['reaction_remove'] = function(block) {
   return code;
 };
 
-
-'use strict';
-
-Blockly.json['lists_create_with'] = function(block) {
-  // Create a list with any number of elements of any type.
-    var code = new Array(block.itemCount_);
-    for (var i = 0; i < block.itemCount_; i++) {
-      code[i] = Blockly.json.valueToCode(block, 'ADD' + i,
-                                       Blockly.json.ORDER_COMMA) || '';
-    }
-
-    var code = '[' + code.join(', ') + ']';
-
-    return [code, Blockly.json.ORDER_ATOMIC];
-};
-
-Blockly.json['reaction_json'] = function(block) {
-    var name =  block.getFieldValue('NAME');
-    var trigger = Blockly.json.valueToCode(block, 'TRIGGER', Blockly.json.ORDER_ATOMIC);
-    var success = Blockly.json.valueToCode(block, 'SUCCESS', Blockly.json.ORDER_ATOMIC);
-
-    var actions =  Blockly.json.statementToCode(block, 'ACTIONS');
-    
-    if (actions === "") {
-        actions = []
-    } else {
-          actions = '[' + actions + ']';
-    }
-    
-    var reactions = [ '{',
-                      '    "reactions": [',
-                      '     {',
-                      '        "name": "' + name + '",',
-                      '        "trigger": ' + trigger + ',',
-                      '        "success": ' + success + ',',
-                      '        "actions": ' + actions,
-                      '     }',
-                      '    ]',
-                      '};'
-                    ];
-    return reactions.join('\n');
-};
-
-
-Blockly.json['reaction_action_json'] = function(block) {
-    var action =   block.getFieldValue('ACTION');
-    var args =  Blockly.json.valueToCode(block, 'ARGUMENTS', Blockly.json.ORDER_ATOMIC);
-
-    var array = [ '"' + action + '"' ];
-    
-    array = array.concat(args);
-    
-    var json = '[\n' + array.join(',\n  ') + '\n]';
-
-    var previousBlock = block.previousConnection.targetBlock();
-    if (block.previousConnection.isConnected() && previousBlock.type !=block.type) {
-        json = '[\n' + json;
-        if (block.nextConnection.isConnected()) {
-            json += ',';
-        } else {
-            json += '\n]';
-        }
-    }
-    
-   
-    return json;
-};
-
-Blockly.json['text'] = function(block) {
-  // Text value.
-  var code = Blockly.json.quote_(block.getFieldValue('TEXT'));
-
-  return [code, Blockly.json.ORDER_ATOMIC];
-};
