@@ -823,7 +823,7 @@ Blockly.bash['reaction_do'] = function(block) {
   return code;
 };
 
-Blockly.bash['reaction_remove'] = function(block) {
+qBlockly.bash['reaction_remove'] = function(block) {
   var file = Blockly.bash.valueToCode(block, 'FILE', Blockly.bash.ORDER_ATOMIC);
 
   var code = 'sm_webui_remove_reaction $flow_name ' + file + '\n';
@@ -832,11 +832,6 @@ Blockly.bash['reaction_remove'] = function(block) {
 
 
 'use strict';
-
-goog.provide('Blockly.json.lists');
-
-goog.require('Blockly.json');
-
 
 Blockly.json['lists_create_with'] = function(block) {
   // Create a list with any number of elements of any type.
@@ -902,13 +897,6 @@ Blockly.json['reaction_action_json'] = function(block) {
    
     return json;
 };
-
-'use strict';
-
-goog.provide('Blockly.json.texts');
-
-goog.require('Blockly.json');
-
 
 Blockly.json['text'] = function(block) {
   // Text value.
