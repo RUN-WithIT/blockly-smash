@@ -1,10 +1,5 @@
 'use strict';
 
-goog.provide('Blockly.json.lists');
-
-goog.require('Blockly.json');
-
-
 Blockly.json['lists_create_with'] = function(block) {
   // Create a list with any number of elements of any type.
     var code = new Array(block.itemCount_);
