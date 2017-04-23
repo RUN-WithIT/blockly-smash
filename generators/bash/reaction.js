@@ -13,7 +13,7 @@ Blockly.bash['reaction_do'] = function(block) {
   return code;
 };
 
-qBlockly.bash['reaction_remove'] = function(block) {
+Blockly.bash['reaction_remove'] = function(block) {
   var file = Blockly.bash.valueToCode(block, 'FILE', Blockly.bash.ORDER_ATOMIC);
 
   var code = 'sm_webui_remove_reaction $flow_name ' + file + '\n';
