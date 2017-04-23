@@ -1,9 +1,5 @@
 'use strict';
 
-goog.provide('Blockly.json');
-
-goog.require('Blockly.Generator');
-
 
 Blockly.json = new Blockly.Generator('json');
 
