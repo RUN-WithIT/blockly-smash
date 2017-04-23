@@ -2,6 +2,13 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var watch = require('gulp-watch');
+
+gulp.task('watch', function() {
+    return watch('generators/**/*.js', function() {
+        gulp.start('minify');
+    });
+});
 
 gulp.task('minify',['concat'], function(){
     return gulp.src('./smash.js')
@@ -12,7 +19,7 @@ gulp.task('minify',['concat'], function(){
 
 
 gulp.task('concat', function(){
-    return gulp.src(['./blocks/*.js', './generators/*.js'])
+    return gulp.src(['./blocks/*.js', './generators/*.js','./generators/*/*.js'])
     .pipe(concat('smash.js'))
     .pipe(gulp.dest('./'));
 })
